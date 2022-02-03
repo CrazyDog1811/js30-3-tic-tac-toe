@@ -31,38 +31,40 @@ function writeSymbol(ev) {
             isX = true;
         }
     }
-    check(ev);
+    check();
 }
 
-function check(ev) {
+function check() {
   for(let i = 0; i < arr.length; i++) {
     if (sells[arr[i][0]].innerHTML === 'x' && sells[arr[i][1]].innerHTML === 'x' && sells[arr[i][2]].innerHTML === 'x') {
         sells[arr[i][0]].classList.add('winner');
         sells[arr[i][1]].classList.add('winner');
         sells[arr[i][2]].classList.add('winner');
         result = "won the crosses";
-        GameOver(ev, result);
+        GameOver(result);
     } else if (sells[arr[i][0]].innerHTML === '0' && sells[arr[i][1]].innerHTML === '0' && sells[arr[i][2]].innerHTML === '0') {
         sells[arr[i][0]].classList.add('winner');
         sells[arr[i][1]].classList.add('winner');
         sells[arr[i][2]].classList.add('winner');
         result = 'Zeros won';
-        GameOver(ev, result);
+        GameOver(result);
     }
   } 
-
+  sellsArr.forEach(sell => console.log(sell.innerHTML))
   if(!result && sellsArr.every(sell => sell.innerHTML === 'x' || sell.innerHTML === '0')) {
     sells.forEach(sell => {
         sell.classList.add('draw');
     })
     result = 'draw. No one won';
-    GameOver(ev, result);
+    GameOver(result);
 }
 }
 
-const GameOver = (ev, res) => {
+const GameOver = (res) => {
+    setTimeout(() => {
   wrapperInterface.style.display = 'grid';
   modalContent.textContent = res;
+    },1000)
 }
 
 const newGame = () => {
@@ -72,7 +74,7 @@ const newGame = () => {
         sell.classList.remove('draw');
     })
     wrapperInterface.style.display = 'none';
-    
+    result= '';
 }
 
 gameField.addEventListener('click', writeSymbol);
