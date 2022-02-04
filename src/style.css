@@ -46,7 +46,9 @@ h1 {
 }
 
 main {
+    display: grid;
     background-color: lavender;
+    min-height: calc(100vh - 100px);
 }
 
 .container {
