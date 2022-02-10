@@ -20,8 +20,9 @@ body {
 header {
     background: antiquewhite;
     line-height: 1;
-    display: grid;
-    place-items: center;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }
 
 h1 {
@@ -43,6 +44,41 @@ h1 {
     color: transparent;
     padding-top: 10px;
     padding-bottom: 10px;
+}
+
+.table {
+    position: relative;
+}
+
+.records {
+    display: none;
+    position: absolute;
+    content: "";
+    left: 0;
+    right: 0;
+    z-index: 1;
+    background-color: rgba(0, 0, 0, 0.5);
+    transition: 1s;
+}
+
+.records>span {
+    display: inline-block;
+    padding-top: 5px;
+    color: var(--color-3);
+}
+
+.records.active {
+    display: block;
+}
+
+header p {
+    background-color: var(--color-4);
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+header p:hover {
+    cursor: pointer;
 }
 
 main {
@@ -127,8 +163,8 @@ main {
 }
 
 .modal-btn:hover {
-cursor: pointer;
-color: #000;
+    cursor: pointer;
+    color: #000;
 }
 
 footer {

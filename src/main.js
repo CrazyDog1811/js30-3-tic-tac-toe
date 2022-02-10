@@ -4,6 +4,10 @@ const sellsArr = [...sells];
 const wrapperInterface = document.querySelector('.wrapper-interface');
 const startBtn = wrapperInterface.querySelector('.modal-btn');
 const modalContent = wrapperInterface.querySelector('.modal-content');
+const score = wrapperInterface.querySelector('.score');
+const recordsContent = document.querySelector('.records');
+const records = document.querySelector('.table>p');
+
 const arr = [
     [0, 1, 2],
     [3, 4, 5],
@@ -17,6 +21,24 @@ const arr = [
 
 let isX = true;
 let result = '';
+let count = 0;
+const resArr = [];
+
+const createRecords = () => {
+    recordsContent.innerHTML = '';
+    console.log(resArr.length);
+    for(let i = 0; i < resArr.length; i++) {
+        let recordEl = document.createElement('span');
+        recordEl.textContent = `${resArr[i]}`;
+        if(recordsContent) {
+            recordsContent.insertAdjacentElement('afterbegin', recordEl);
+        }
+    }
+}
+
+const showRecords = () => {
+    recordsContent.classList.toggle('active');
+}
 
 
 function writeSymbol(ev) {
@@ -31,6 +53,7 @@ function writeSymbol(ev) {
             isX = true;
         }
     }
+    count++;
     check();
 }
 
@@ -64,6 +87,14 @@ const GameOver = (res) => {
     setTimeout(() => {
         wrapperInterface.style.display = 'grid';
         modalContent.textContent = res;
+        score.textContent = `${count} moves made`;
+        if(resArr.length < 10) {
+            resArr.push(`${res}. ${count} moves made`);
+        } else {
+            resArr.shift();
+            resArr.push(`${res}. ${count} moves made`);
+        }
+        setLoaclStorage();
     }, 1000)
 }
 
@@ -75,7 +106,23 @@ const newGame = () => {
     })
     wrapperInterface.style.display = 'none';
     result = '';
+    isX = true;
+    count = 0;
+    createRecords();
+}
+
+const setLoaclStorage = () => {
+    localStorage.setItem('lastReults', resArr);
+}
+
+const getLocalStorage = () => {
+    if(localStorage.getItem('lastResults')) {
+        resArr = localStorage.getItem('lastResults');
+        confirm.log(resArr);
+    }
 }
 
 gameField.addEventListener('click', writeSymbol);
 startBtn.addEventListener('click', newGame);
+records.addEventListener('click', showRecords)
+window.addEventListener('load', getLocalStorage);
