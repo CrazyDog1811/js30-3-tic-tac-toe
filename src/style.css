@@ -51,14 +51,26 @@ h1 {
 }
 
 .records {
-    display: none;
+    display: block;
+    visibility: hidden;
     position: absolute;
     content: "";
+    top: -400px;
     left: 0;
     right: 0;
     z-index: 1;
     background-color: rgba(0, 0, 0, 0.5);
-    transition: 1s;
+    transition: all 0.8s;
+}
+.records1 {
+    position: absolute;
+    content: "";
+    left: 0;
+    right: 0;
+    height: 30px;
+    top: -30px;
+    z-index: 2;
+    background-color: antiquewhite;
 }
 
 .records>span {
@@ -69,12 +81,18 @@ h1 {
 
 .records.active {
     display: block;
+    visibility: initial;
+    top: 25px;
+    transition: 0.8s;
 }
 
 header p {
+    position: relative;
     background-color: var(--color-4);
     padding: 5px 10px;
-    border-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    z-index: 2;
 }
 
 header p:hover {
@@ -137,6 +155,7 @@ main {
     bottom: 0;
     left: 0;
     background-color: rgba(0, 0, 0, 0.5);
+    z-index: 10;
 }
 
 .modal-window {
@@ -211,4 +230,10 @@ footer {
         width: 100%;
         padding-top: 100%;
     }
+}
+
+@media screen and (max-width: 400px) {
+  h1 {
+      font-size: 1.2em;
+  }
 }
